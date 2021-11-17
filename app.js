@@ -6,19 +6,21 @@ let scoreP1 = document.querySelector('#score--0');
 let currentScoreP1 = document.querySelector('#current--0');
 let scoreP2 = document.getElementById('score--1');
 let currentScoreP2 = document.getElementById('current--1');
+
 let dice = document.querySelector('.dice');
-let btnRoll = document.querySelector('.btn--roll');
-let btnNewGame = document.querySelector('.btn--new');
-let btnHold = document.querySelector('.btn--hold');
-
-
 dice.classList.add('hidden');
 
-// setting the inital values
+let btnRoll = document.querySelector('.btn--roll');
+let btnNewGame = document.querySelector('.btn--new');
+let btnHold = document.querySelector('.btn--roll');
 
+
+// Initializing with default values
+scoreP1.textContent = 0;
+scoreP2.textContent = 0;
 let currentScore = 0;
-currentScoreP1.textContent = 0;
-currentScoreP2.textContent = 0
+let activePlayer = 0;
+
 
 // rolling dice
 btnRoll.addEventListener('click', function () {
@@ -32,12 +34,15 @@ btnRoll.addEventListener('click', function () {
   dice.src = `dice-${randomDiceNumber}.png`;
 
   // if dice == 1; if true swith player
-  // else add the dice value to the current score
   if(randomDiceNumber !== 1){
-    currentScore += randomDiceNumber;
-    currentScoreP1.textContent = currentScore
+      currentScore = currentScore + randomDiceNumber;
+      document.querySelector(`#current--${activePlayer}`).textContent = currentScore
   }else{
-    currentScore = 0;
-
+      currentScore = 0;
+      document.querySelector(`#current--${activePlayer}`).textContent = 0;
+      activePlayer = activePlayer === 0 ? 1 : 0;
   }
+
+
+  // else add the dice value to the current score
 });
